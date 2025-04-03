@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem.Processors;
 
 public class BarBalancer : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class BarBalancer : MonoBehaviour
 
     public float minRotationZ = -30f; // degrees
     public float maxRotationZ = 30f;
+    public GameObject scale1;
+    public GameObject scale2;
+    public GameObject leftSide;
+    public GameObject rightSide;
 
     private Rigidbody rb;
 
@@ -33,6 +38,9 @@ public class BarBalancer : MonoBehaviour
 
         // Clamp rotation
         ClampRotation();
+
+        //scale1.transform.position = rightSide.transform.position;
+        //scale2.transform.position = leftSide.transform.position;
     }
 
     void ClampRotation()
