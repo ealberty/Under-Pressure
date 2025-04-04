@@ -1,4 +1,4 @@
-public enum leverPuzzleState {
+public enum LeverPuzzleState {
     IDLE,
     _1_SOUTH,
     _2_EAST,
