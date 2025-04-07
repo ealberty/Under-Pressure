@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Anchor
+  - TiltPuzzleWinBox1
+  - TiltPuzzleWinBox2
+  - TiltPuzzleWinBox3
   layers:
   - Default
   - TransparentFX

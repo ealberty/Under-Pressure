@@ -1,61 +1,41 @@
 using UnityEngine;
-using UnityEngine.InputSystem.Processors;
 
 public class BarBalancer : MonoBehaviour
 {
     public Rigidbody leftMass;
     public Rigidbody rightMass;
     public float armLength = 1f;
-    public float torqueMultiplier = 1f;
-
+    public float angleMultiplier = 1f; // Controls angle sensitivity to mass difference
     public float minRotationZ = -30f; // degrees
     public float maxRotationZ = 30f;
-    public GameObject scale1;
-    public GameObject scale2;
-    public GameObject leftSide;
-    public GameObject rightSide;
 
-    private Rigidbody rb;
+    public float smoothTime = 0.5f; // Adjust this for snappier or smoother transitions
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-        rb.centerOfMass = Vector3.zero;
-    }
+    private float currentVelocityZ = 0f; // Required for SmoothDampAngle
 
     void FixedUpdate()
     {
+        // Compute torques from each side
         float massLeft = leftMass.mass;
         float massRight = rightMass.mass;
 
         float torqueLeft = massLeft * Physics.gravity.magnitude * armLength;
         float torqueRight = massRight * Physics.gravity.magnitude * armLength;
-
         float netTorque = torqueLeft - torqueRight;
 
-        // Apply torque
-        rb.AddTorque(Vector3.forward * netTorque * torqueMultiplier);
+        // Determine target angle from net torque
+        float targetAngleZ = Mathf.Clamp(netTorque * angleMultiplier, minRotationZ, maxRotationZ);
 
-        // Clamp rotation
-        ClampRotation();
+        // Get current Z rotation in degrees (-180 to 180)
+        float currentZ = transform.localEulerAngles.z;
+        if (currentZ > 180f) currentZ -= 360f;
 
-        //scale1.transform.position = rightSide.transform.position;
-        //scale2.transform.position = leftSide.transform.position;
-    }
+        // Smoothly damp to the target
+        float newZ = Mathf.SmoothDampAngle(currentZ, targetAngleZ, ref currentVelocityZ, smoothTime);
 
-    void ClampRotation()
-    {
-        Vector3 currentRotation = transform.localEulerAngles;
-
-        // Convert to -180 to 180
-        float z = currentRotation.z;
-        if (z > 180f) z -= 360f;
-
-        z = Mathf.Clamp(z, minRotationZ, maxRotationZ);
-        transform.localRotation = Quaternion.Euler(0f, 0f, z);
-
-        // Optionally: stop the Rigidbody's rotation when clamped
-        rb.angularVelocity = Vector3.zero;
+        // Apply the new rotation
+        transform.localRotation = Quaternion.Euler(0f, 0f, newZ);
     }
 }
+
 

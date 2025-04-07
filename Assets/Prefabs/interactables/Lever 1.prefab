@@ -55,7 +55,7 @@ MonoBehaviour:
   - Assets/Materials/Model Color Palette.mat
   currentMaterialIndex: 0
   renderableMesh:
-    name: UM_OperatedMesh_a1a30c9c-ec02-48ef-8e47-6260406b3958
+    name: UM_OperatedMesh_282f39e2-6bfe-4444-b2df-d94d4533a629
     skinnedMesh: 0
     sharedMesh: {fileID: 4913545183695528598}
     buidVersion:
@@ -67,7 +67,7 @@ MonoBehaviour:
       IndexVersion: 0
       OptimizedTopology: 0
   sourceMesh: {fileID: 0}
-  sourceMeshRendererGUID: a1a30c9c-ec02-48ef-8e47-6260406b3958
+  sourceMeshRendererGUID: 282f39e2-6bfe-4444-b2df-d94d4533a629
   guid: cb0e0eb9-ae04-4af9-9472-8f1cdd61f3c8
   localOptions:
     RecalculateTangents: 0
