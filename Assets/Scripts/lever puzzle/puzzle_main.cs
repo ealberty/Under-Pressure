@@ -73,7 +73,7 @@ public class puzzle_main : MonoBehaviour {
         }
     }
 
-    public void Switch(Levers lever){
+    public void Press(Levers lever){
         print("PULL THE LEVER KRONK! " + lever);
         print ("WRONG LEVER!");
         lastLever = lever;

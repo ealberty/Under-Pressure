@@ -1,25 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class LeverPull : MonoBehaviour{
-    public Levers lever;
-    public puzzle_main puzzle;
+    public float minAngle = -45f;
+    public float maxAngle = 45f;
+    public bool switchHit = false;
+    
 
-    // Start is called before the first frame update
-    void Start(){
-
-    }
-
-    // Update is called once per frame
     void Update(){
+        Quaternion localRot = transform.localRotation;
+        Vector3 currentEuler = localRot.eulerAngles;
+
+        float x = currentEuler.x;
+        if (x > 180f) x -= 360f;
+
+        float y = currentEuler.y;
+        float z = currentEuler.z;
+
+        float clampedX = Mathf.Clamp(x, minAngle, maxAngle);
+
+        if (Mathf.Abs(x - clampedX) > 0.1f)
+        {
+            transform.localRotation = Quaternion.Euler(clampedX, 0f, 0f);
+        }
+
+        if ((y > 0f) || (z > 0f))
+        {
+            transform.localRotation = Quaternion.Euler(currentEuler.x, 0f, 0f);
+        }
     }
 
-    public void Switch(){
-        if (puzzle.State != LeverPuzzleState._4_NORTH_FINISHED){
-            print ("KRONK PULLED THIS LEVER: " + lever);
-            puzzle.Switch(lever);
+    private void OnTriggerEnter(Collider other){
+        if (other.CompareTag("PlayerHand")){
+            switchHit = true;
+            print("Pulled the lever!");
         }
     }
 }
