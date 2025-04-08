@@ -7,6 +7,7 @@ using UnityEngine;
 public class TableRisingScript : MonoBehaviour
 {
 
+    private AudioSource audioSource;
     public GameObject pivot;
     public int onStep = 1;
     private int frame = 0; 
@@ -15,18 +16,20 @@ public class TableRisingScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
+        InvokeRepeating("CheckPosition", 0f, 1f);
     }
 
     // Update is called once per frame
-    void Update()
+    void CheckPosition()
     {
-        if (frame == 100){
+        //if (frame == 200){
             float angle = pivot.transform.localRotation.z;
             if (onStep == 1){
                 if (angle > 0.25f){
                     onStep += 1;
                     transform.position += new UnityEngine.Vector3(0, 0.3f, 0);
+                    audioSource.Play();
                     StartCoroutine(Flood());
                 }
             }
@@ -34,23 +37,26 @@ public class TableRisingScript : MonoBehaviour
                 if (angle <= -0.12f && angle >= -0.16f){
                     onStep += 1;
                     transform.position += new UnityEngine.Vector3(0, 0.3f, 0);
+                    audioSource.Play();
                 }
             }
             if (onStep == 3){
                 if (angle >= 0.12f && angle <= 0.16f){
                     onStep += 1;
                     transform.position += new UnityEngine.Vector3(0, 0.3f, 0);
+                    audioSource.Play();
                 }
             }
             if (onStep == 4){
                 if (angle >= -0.02f && angle <= 0.02f){
                     onStep += 1;
                     transform.position += new UnityEngine.Vector3(0, 0.3f, 0);
+                    audioSource.Play();
                 }
             }
-            frame = 0;
-        }
-        frame += 1;
+            //frame = 0;
+        //}
+        //frame += 1;
     }
 
     private IEnumerator Flood()
