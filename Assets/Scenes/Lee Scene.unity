@@ -2412,7 +2412,7 @@ MonoBehaviour:
   - Packages/com.tripolygon.umodeler-x/Editor/Resources/Materials/UModelerX_Gray_URP.mat
   currentMaterialIndex: 0
   renderableMesh:
-    name: UM_OperatedMesh_8d57ce2d-5003-425b-9a82-dc7bee55e5a4
+    name: UM_OperatedMesh_0227ba03-7d1c-46fb-be49-1978307c373e
     skinnedMesh: 0
     sharedMesh: {fileID: 4300000, guid: 458f95beb58dc8e45a47e5fba5ee1a2b, type: 2}
     buidVersion:
@@ -2424,7 +2424,7 @@ MonoBehaviour:
       IndexVersion: 0
       OptimizedTopology: 0
   sourceMesh: {fileID: 0}
-  sourceMeshRendererGUID: 8d57ce2d-5003-425b-9a82-dc7bee55e5a4
+  sourceMeshRendererGUID: 0227ba03-7d1c-46fb-be49-1978307c373e
   guid: cb0e0eb9-ae04-4af9-9472-8f1cdd61f3c8
   localOptions:
     RecalculateTangents: 0
@@ -2480,7 +2480,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 110
+  m_Constraints: 62
   m_CollisionDetection: 0
 --- !u!114 &1224493149
 MonoBehaviour:
@@ -2599,7 +2599,7 @@ MonoBehaviour:
   m_ThrowVelocityScale: 1.5
   m_ThrowAngularVelocityScale: 1
   m_ForceGravityOnDetach: 0
-  m_RetainTransformParent: 1
+  m_RetainTransformParent: 0
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
@@ -4155,7 +4155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7045642351297692483, guid: fa8c6800cfeae9a4cb80c1f39098f838, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.332
       objectReference: {fileID: 0}
     - target: {fileID: 7045642351297692483, guid: fa8c6800cfeae9a4cb80c1f39098f838, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4163,11 +4163,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7045642351297692483, guid: fa8c6800cfeae9a4cb80c1f39098f838, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.532
       objectReference: {fileID: 0}
     - target: {fileID: 7045642351297692483, guid: fa8c6800cfeae9a4cb80c1f39098f838, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 7045642351297692483, guid: fa8c6800cfeae9a4cb80c1f39098f838, type: 3}
       propertyPath: m_LocalRotation.x
@@ -4175,7 +4175,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7045642351297692483, guid: fa8c6800cfeae9a4cb80c1f39098f838, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 7045642351297692483, guid: fa8c6800cfeae9a4cb80c1f39098f838, type: 3}
       propertyPath: m_LocalRotation.z
@@ -4187,7 +4187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7045642351297692483, guid: fa8c6800cfeae9a4cb80c1f39098f838, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 7045642351297692483, guid: fa8c6800cfeae9a4cb80c1f39098f838, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

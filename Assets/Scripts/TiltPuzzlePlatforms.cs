@@ -20,7 +20,7 @@ public class TiltPuzzlePlatforms : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float currentRotation = transform.localRotation.eulerAngles.x;
+        float currentRotation = transform.localRotation.eulerAngles.z;
 
         float rotationChange = currentRotation - currentLeverRotation;
         currentLeverRotation = currentRotation;

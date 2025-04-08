@@ -23,7 +23,7 @@ public class TiltPuzzle : MonoBehaviour
     void Start()
     {
         Instance = this;
-        SpawnedBattery = Instantiate(Battery, BatterySpawn.position, Quaternion.Euler(90, 0, 0));
+        SpawnedBattery = Instantiate(Battery, BatterySpawn.position, Quaternion.Euler(0, 0, 90));
         stateEnterMethods = new() {
             [State.IDLE] = StateEnter_Idle,
             [State.ONE]  = StateEnter_One,
@@ -61,34 +61,40 @@ public class TiltPuzzle : MonoBehaviour
     private void StateEnter_Idle() {}
     private void StateEnter_One() {}
     private void StateEnter_Two() {}
-    private void StateEnter_Three_Finished() {}
+    private void StateEnter_Three_Finished() {
+    }
     private void StateEnter_ERROR() {
         ChangeState(State.IDLE);
     }
 
     private void StateStay_Idle() {
-        if (BatteryCount == 1)
+        if (BatteryCount == 0) {}
+        else if (BatteryCount == 1)
             ChangeState(State.ONE);
-        else
-            ChangeState(State.ERROR);
     }
     private void StateStay_One() {
-        if (BatteryCount == 2)
+        if (BatteryCount == 1) {}
+        else if (BatteryCount == 2)
             ChangeState(State.TWO);
         else
             ChangeState(State.ERROR);
     }
     private void StateStay_Two() {
-        if (BatteryCount == 3)
+        if (BatteryCount == 2) {}
+        else if (BatteryCount == 3)
             ChangeState(State.THREE_FINISHED);
         else
             ChangeState(State.ERROR);
     }
-    private void StateStay_Three_Finished() {}
-    private void StateStay_ERROR() {}
+    private void StateStay_Three_Finished() {
+        if (SpawnedBattery != null)
+            Destroy(SpawnedBattery);
+    }
+    private void StateStay_ERROR() {
+    }
 
     public void BatteryBoxOne() {
-        if (BatteryCount < 2)
+        if (BatteryCount < 3)
         {
             if (BoxOneUsed == false)
             {
@@ -104,7 +110,7 @@ public class TiltPuzzle : MonoBehaviour
             if (SpawnedBattery != null)
             {
                 Destroy(SpawnedBattery);
-                Instantiate(Battery, BatterySpawn.position, Quaternion.Euler(90, 0, 0));
+                SpawnedBattery = Instantiate(Battery, BatterySpawn.position, Quaternion.Euler(0, 0, 90));
             }
         }
         else
@@ -113,7 +119,7 @@ public class TiltPuzzle : MonoBehaviour
         }
     }
     public void BatteryBoxTwo() {
-        if (BatteryCount < 2)
+        if (BatteryCount < 3)
         {
             if (BoxTwoUsed == false)
             {
@@ -129,7 +135,7 @@ public class TiltPuzzle : MonoBehaviour
             if (SpawnedBattery != null)
             {
                 Destroy(SpawnedBattery);
-                SpawnedBattery = Instantiate(Battery, BatterySpawn.position, Quaternion.Euler(90, 0, 0));
+                SpawnedBattery = Instantiate(Battery, BatterySpawn.position, Quaternion.Euler(0, 0, 90));
             }
         }
         else
@@ -138,7 +144,7 @@ public class TiltPuzzle : MonoBehaviour
         }
     }
     public void BatteryBoxThree() {
-        if (BatteryCount < 2)
+        if (BatteryCount < 3)
         {
             if (BoxThreeUsed == false)
             {
@@ -154,7 +160,7 @@ public class TiltPuzzle : MonoBehaviour
             if (SpawnedBattery != null)
             {
                 Destroy(SpawnedBattery);
-                SpawnedBattery = Instantiate(Battery, BatterySpawn.position, Quaternion.Euler(90, 0, 0));
+                SpawnedBattery = Instantiate(Battery, BatterySpawn.position, Quaternion.Euler(0, 0, 90));
             }
         }
         else
@@ -164,12 +170,12 @@ public class TiltPuzzle : MonoBehaviour
     }
     public void SpawnBattery() 
     {
-        if (BatteryCount < 2)
+        if (BatteryCount < 3)
         {
             if (SpawnedBattery != null)
             {
                 Destroy(SpawnedBattery);
-                SpawnedBattery = Instantiate(Battery, BatterySpawn.position, Quaternion.Euler(90, 0, 0));
+                SpawnedBattery = Instantiate(Battery, BatterySpawn.position, Quaternion.Euler(0, 0, 90));
             }
         }
     }
