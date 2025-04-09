@@ -13,4 +13,7 @@ public class NorthButton : MonoBehaviour{
         northSwitchHit = false;
         print("Released the button!");
     }
+    public static void clear(){
+        northSwitchHit = false;
+    }
 }

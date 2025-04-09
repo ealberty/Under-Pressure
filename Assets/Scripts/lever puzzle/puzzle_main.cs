@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using State = LeverPuzzleState;
 
+
 public class puzzle_main : MonoBehaviour {
     public State State { get; private set; }
     private Levers northLever;
@@ -30,15 +31,22 @@ public class puzzle_main : MonoBehaviour {
         if (north){
             northLever = Levers.NORTH;
             north = false;
+            NorthButton.clear();
         }
         else if (south){
             southLever = Levers.SOUTH;
+            south = false;
+            SouthButton.clear();
         }
         else if (west){
             westLever = Levers.WEST;
+            west = false;
+            WestButton.clear();
         }
         else if (east){
             eastLever = Levers.EAST;
+            east = false;
+            EastButton.clear();
         }
         else{
             return;

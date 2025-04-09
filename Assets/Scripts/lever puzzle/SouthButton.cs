@@ -7,6 +7,10 @@ public class SouthButton : MonoBehaviour{
     public static bool southSwitchHit = false;
     public void OnButtonPressed(){
         southSwitchHit = true;
-        print("You hit the north button!");
+        print("You hit the south button!");
+    }
+
+    public static void clear(){
+        southSwitchHit = false;
     }
 }
