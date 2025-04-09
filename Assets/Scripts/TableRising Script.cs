@@ -1,62 +1,112 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
-using Tripolygon.UModelerX.Runtime.MessagePack.Resolvers;
 using UnityEngine;
+
+public enum TableState {
+    WAITING,
+    STEP1,
+    STEP2,
+    STEP3,
+    STEP4,
+    DONE
+}
 
 public class TableRisingScript : MonoBehaviour
 {
-
     private AudioSource audioSource;
     public GameObject pivot;
-    public int onStep = 1;
-    private int frame = 0; 
     public GameObject water;
-    
-    // Start is called before the first frame update
+
+    private TableState curState = TableState.WAITING;
+    private Dictionary<TableState, System.Action> stateUpdateMethods;
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        InvokeRepeating("CheckPosition", 0f, 1f);
+
+        stateUpdateMethods = new()
+        {
+            [TableState.WAITING] = StateUpdateWaiting,
+            [TableState.STEP1] = StateUpdateStep1,
+            [TableState.STEP2] = StateUpdateStep2,
+            [TableState.STEP3] = StateUpdateStep3,
+            [TableState.STEP4] = StateUpdateStep4,
+            [TableState.DONE] = StateUpdateDone
+        };
+
+        // Start checking immediately
+        InvokeRepeating(nameof(CheckState), 0f, 1f);
+        ChangeState(TableState.STEP1); // Begin with STEP1 immediately
     }
 
-    // Update is called once per frame
-    void CheckPosition()
+    void CheckState()
     {
-        //if (frame == 200){
-            float angle = pivot.transform.localRotation.z;
-            if (onStep == 1){
-                if (angle > 0.25f){
-                    onStep += 1;
-                    transform.position += new UnityEngine.Vector3(0, 0.3f, 0);
-                    audioSource.Play();
-                    StartCoroutine(Flood());
-                }
-            }
-            if (onStep == 2){
-                if (angle <= -0.12f && angle >= -0.16f){
-                    onStep += 1;
-                    transform.position += new UnityEngine.Vector3(0, 0.3f, 0);
-                    audioSource.Play();
-                }
-            }
-            if (onStep == 3){
-                if (angle >= 0.12f && angle <= 0.16f){
-                    onStep += 1;
-                    transform.position += new UnityEngine.Vector3(0, 0.3f, 0);
-                    audioSource.Play();
-                }
-            }
-            if (onStep == 4){
-                if (angle >= -0.02f && angle <= 0.02f){
-                    onStep += 1;
-                    transform.position += new UnityEngine.Vector3(0, 0.3f, 0);
-                    audioSource.Play();
-                }
-            }
-            //frame = 0;
-        //}
-        //frame += 1;
+        if (stateUpdateMethods.ContainsKey(curState))
+        {
+            stateUpdateMethods[curState]?.Invoke();
+        }
+    }
+
+    void ChangeState(TableState newState)
+    {
+        if (curState != newState)
+        {
+            curState = newState;
+        }
+    }
+
+    private void RaiseTable()
+    {
+        transform.position += new Vector3(0, 0.3f, 0);
+        audioSource.Play();
+    }
+
+    private void StateUpdateWaiting() { }
+
+    private void StateUpdateStep1()
+    {
+        float angle = pivot.transform.localRotation.z;
+        if (angle > 0.25f)
+        {
+            RaiseTable();
+            StartCoroutine(Flood());
+            ChangeState(TableState.STEP2);
+        }
+    }
+
+    private void StateUpdateStep2()
+    {
+        float angle = pivot.transform.localRotation.z;
+        if (angle <= -0.12f && angle >= -0.16f)
+        {
+            RaiseTable();
+            ChangeState(TableState.STEP3);
+        }
+    }
+
+    private void StateUpdateStep3()
+    {
+        float angle = pivot.transform.localRotation.z;
+        if (angle >= 0.12f && angle <= 0.16f)
+        {
+            RaiseTable();
+            ChangeState(TableState.STEP4);
+        }
+    }
+
+    private void StateUpdateStep4()
+    {
+        float angle = pivot.transform.localRotation.z;
+        if (angle >= -0.02f && angle <= 0.02f)
+        {
+            RaiseTable();
+            ChangeState(TableState.DONE);
+        }
+    }
+
+    private void StateUpdateDone()
+    {
+        //triggers next thing
     }
 
     private IEnumerator Flood()
