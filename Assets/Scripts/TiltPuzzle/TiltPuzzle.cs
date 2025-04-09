@@ -59,11 +59,17 @@ public class TiltPuzzle : MonoBehaviour
     }
 
     private void StateEnter_Idle() {}
-    private void StateEnter_One() {}
-    private void StateEnter_Two() {}
+    private void StateEnter_One() {
+        SoundManager.Play(SoundType.CORRECT, pitch:0.7f);
+    }
+    private void StateEnter_Two() {
+        SoundManager.Play(SoundType.CORRECT, pitch:0.85f);
+    }
     private void StateEnter_Three_Finished() {
+        SoundManager.Play(SoundType.FINISHED, pitch:1.0f);
     }
     private void StateEnter_ERROR() {
+        SoundManager.Play(SoundType.WRONG);
         ChangeState(State.IDLE);
     }
 
@@ -103,7 +109,8 @@ public class TiltPuzzle : MonoBehaviour
             }
             else
             {
-                BatteryCount = 1;
+                BatteryCount = 0;
+                BoxOneUsed = false;
                 BoxTwoUsed = false;
                 BoxThreeUsed = false;
             }
@@ -128,8 +135,9 @@ public class TiltPuzzle : MonoBehaviour
             }
             else
             {
-                BatteryCount = 1;
+                BatteryCount = 0;
                 BoxOneUsed = false;
+                BoxTwoUsed = false;
                 BoxThreeUsed = false;
             }
             if (SpawnedBattery != null)
@@ -153,9 +161,10 @@ public class TiltPuzzle : MonoBehaviour
             }
             else
             {
-                BatteryCount = 1;
+                BatteryCount = 0;
                 BoxOneUsed = false;
                 BoxTwoUsed = false;
+                BoxThreeUsed = false;
             }
             if (SpawnedBattery != null)
             {
