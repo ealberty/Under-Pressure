@@ -116,6 +116,7 @@ public class puzzle_main : MonoBehaviour {
                     break;
                 case State._4_NORTH_FINISHED:
                     SoundManager.Play(SoundType.FINISHED);
+                    Game.Instance.FinishedPuzzle();
                     break;
                 case State.ERROR:
                     SoundManager.Play(SoundType.WRONG);
