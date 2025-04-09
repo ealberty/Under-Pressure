@@ -1,19 +1,19 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SoundType{
+public enum SoundType {
     CORRECT,
     WRONG,
     FINISHED,
 }
-public class SoundCollection{
+
+public class SoundCollection {
     private AudioClip[] clips;
     private int lastClipIndex;
 
-    public SoundCollection(params string[] clipNames){
+    public SoundCollection(params string[] clipNames) {
         this.clips = new AudioClip[clipNames.Length];
-        for (int i = 0; i < clips.Length; i++){
+        for (int i = 0; i < clips.Length; i++) {
             clips[i] = Resources.Load<AudioClip>(clipNames[i]);
             if (clips[i] == null) {
                 Debug.Log($"can't find audio clip {clipNames[i]}");
@@ -39,15 +39,16 @@ public class SoundCollection{
             return clips[index];
         }
     }
+
 }
 
 [RequireComponent(typeof(AudioSource))]
-public class LeverSoundManager : MonoBehaviour {
+public class SoundManager : MonoBehaviour {
     public float mainVolume = 1.0f;
     private Dictionary<SoundType, SoundCollection> sounds;
     private AudioSource audioSrc;
 
-    public static LeverSoundManager Instance { get; private set; }
+    public static SoundManager Instance { get; private set; }
 
     // unity life cycle
     private void Awake() {

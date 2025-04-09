@@ -98,23 +98,19 @@ public class puzzle_main : MonoBehaviour {
                 case State.IDLE:
                     break;
                 case State._1_SOUTH:
-                    //LeverSoundManager.Play(SoundType.CORRECT);
-                    print("South!");
+                    SoundManager.Play(SoundType.CORRECT);
                     break;
                 case State._2_EAST:
-                    //LeverSoundManager.Play(SoundType.CORRECT);
-                    print("East!");
+                    SoundManager.Play(SoundType.CORRECT);
                     break;
                 case State._3_WEST:
-                    print("West!");
-                    //LeverSoundManager.Play(SoundType.CORRECT);
+                    SoundManager.Play(SoundType.CORRECT);
                     break;
                 case State._4_NORTH_FINISHED:
-                    print("North!");
-                    //LeverSoundManager.Play(SoundType.FINISHED);
+                    SoundManager.Play(SoundType.FINISHED);
                     break;
                 case State.ERROR:
-                    //LeverSoundManager.Play(SoundType.WRONG);
+                    SoundManager.Play(SoundType.WRONG);
                     ChangeState(State.IDLE);
                     break;
             }

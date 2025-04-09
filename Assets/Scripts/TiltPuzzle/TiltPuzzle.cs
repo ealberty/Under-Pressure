@@ -17,7 +17,7 @@ public class TiltPuzzle : MonoBehaviour
     private Dictionary<State, Action> stateEnterMethods;
     private Dictionary<State, Action> stateStayMethods;
 
-    public static TiltPuzzle Instance {get; private set;}
+    public static TiltPuzzle Instance { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -57,16 +57,27 @@ public class TiltPuzzle : MonoBehaviour
             stateEnterMethods[newState]();
         }
     }
-
+    
+    #region State Methods
+    #region State Enter Methods
     private void StateEnter_Idle() {}
-    private void StateEnter_One() {}
-    private void StateEnter_Two() {}
+    private void StateEnter_One() {
+        SoundManager.Play(SoundType.CORRECT, pitch:0.7f);
+    }
+    private void StateEnter_Two() {
+        SoundManager.Play(SoundType.CORRECT, pitch:0.85f);
+    }
     private void StateEnter_Three_Finished() {
+        SoundManager.Play(SoundType.FINISHED, pitch:1.0f);
+        Game.Instance.FinishedPuzzle();
     }
     private void StateEnter_ERROR() {
+        SoundManager.Play(SoundType.WRONG);
         ChangeState(State.IDLE);
     }
+    #endregion
 
+    #region State Stay Methods
     private void StateStay_Idle() {
         if (BatteryCount == 0) {}
         else if (BatteryCount == 1)
@@ -92,7 +103,10 @@ public class TiltPuzzle : MonoBehaviour
     }
     private void StateStay_ERROR() {
     }
+    #endregion
+    #endregion   
 
+    #region Functions to Handle Puzzle
     public void BatteryBoxOne() {
         if (BatteryCount < 3)
         {
@@ -103,7 +117,8 @@ public class TiltPuzzle : MonoBehaviour
             }
             else
             {
-                BatteryCount = 1;
+                BatteryCount = 0;
+                BoxOneUsed = false;
                 BoxTwoUsed = false;
                 BoxThreeUsed = false;
             }
@@ -128,8 +143,9 @@ public class TiltPuzzle : MonoBehaviour
             }
             else
             {
-                BatteryCount = 1;
+                BatteryCount = 0;
                 BoxOneUsed = false;
+                BoxTwoUsed = false;
                 BoxThreeUsed = false;
             }
             if (SpawnedBattery != null)
@@ -153,9 +169,10 @@ public class TiltPuzzle : MonoBehaviour
             }
             else
             {
-                BatteryCount = 1;
+                BatteryCount = 0;
                 BoxOneUsed = false;
                 BoxTwoUsed = false;
+                BoxThreeUsed = false;
             }
             if (SpawnedBattery != null)
             {
@@ -179,4 +196,5 @@ public class TiltPuzzle : MonoBehaviour
             }
         }
     }
+    #endregion
 }
