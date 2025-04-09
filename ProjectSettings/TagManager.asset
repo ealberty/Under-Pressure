@@ -8,6 +8,7 @@ TagManager:
   - TiltPuzzleWinBox1
   - TiltPuzzleWinBox2
   - TiltPuzzleWinBox3
+  - Button
   layers:
   - Default
   - TransparentFX
@@ -15,8 +16,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Hands
+  - Interactive
   - 
   - 
   - 
