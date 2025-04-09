@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,7 +51,9 @@ public class Game : MonoBehaviour
     #region State Methods
     #region State Enter Methods
     private void StateEnter_Idle() {}
-    private void StateEnter_Puzzle_1() {}
+    private void StateEnter_Puzzle_1() {
+        DoorOneOpen.Instance.OpenDoor();
+    }
     private void StateEnter_Puzzle_2() {}
     private void StateEnter_Puzzle_3() {}
     private void StateEnter_Puzzle_4_Finished() {}
@@ -75,7 +78,7 @@ public class Game : MonoBehaviour
     private void StateStay_Puzzle_3() {
         if (StateCount == 4) {}
         else if (StateCount == 3)
-            ChangeState(State.PUZZLE_4);
+            ChangeState(State.PUZZLE_4_FINISHED);
     }
     private void StateStay_Puzzle_4_Finished() {}
     #endregion
