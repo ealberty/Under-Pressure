@@ -10,6 +10,7 @@ public class Game : MonoBehaviour
     private Dictionary<State, Action> stateEnterMethods;
     private Dictionary<State, Action> stateStayMethods;
     private float StateCount;
+    public GameObject Table;
 
     public static Game Instance { get; private set; }
 
@@ -53,6 +54,7 @@ public class Game : MonoBehaviour
     private void StateEnter_Idle() {}
     private void StateEnter_Puzzle_1() {
         DoorOneOpen.Instance.OpenDoor();
+        Table.GetComponent<TableRisingScript>().enableTable = true;
     }
     private void StateEnter_Puzzle_2() {}
     private void StateEnter_Puzzle_3() {}
