@@ -64,7 +64,9 @@ public class Game : MonoBehaviour
     private void StateEnter_Puzzle_3() {
         DoorTwoOpen.Instance.OpenDoor();
     }
-    private void StateEnter_Puzzle_4_Finished() {}
+    private void StateEnter_Puzzle_4_Finished() {
+        ElevatorAnimation.Instance.elevatorenter();
+    }
     private void StateEnter_Fail() {
         FailParticles.SetActive(true);
         Invoke("GameOver", 7f);
