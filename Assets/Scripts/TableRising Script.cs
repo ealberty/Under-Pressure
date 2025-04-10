@@ -17,6 +17,7 @@ public class TableRisingScript : MonoBehaviour
     private AudioSource audioSource;
     public GameObject pivot;
     public GameObject water;
+    public GameObject compass;
 
     private TableState curState = TableState.WAITING;
     private Dictionary<TableState, System.Action> stateUpdateMethods;
@@ -24,6 +25,11 @@ public class TableRisingScript : MonoBehaviour
 
     void Start()
     {
+        RaiseTable();
+        RaiseTable();
+        RaiseTable();
+        RaiseTable();
+        RaiseCompass();
         audioSource = GetComponent<AudioSource>();
 
         stateUpdateMethods = new()
@@ -70,7 +76,12 @@ public class TableRisingScript : MonoBehaviour
     private void RaiseTable()
     {
         transform.position += new Vector3(0, 0.3f, 0);
-        audioSource.Play();
+//        audioSource.Play();
+    }
+
+    private void RaiseCompass(){
+        compass.SetActive(true);
+        Debug.Log("test");
     }
 
     // Nothing is happening
@@ -124,6 +135,7 @@ public class TableRisingScript : MonoBehaviour
     private void StateUpdateDone()
     {
         //triggers next thing
+
         Game.Instance.FinishedPuzzle();
     }
 
