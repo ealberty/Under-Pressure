@@ -25,6 +25,7 @@ public class CarBufferOne : MonoBehaviour
         if (Jampuzzle.Buffer1Jammed == true)
         {
             Jampuzzle.Buffer1Jammed = false;
+            Jampuzzle.Buffer2Jammed = false;
             CarBufferA.interactionLayers = InteractionLayerMask.GetMask("Fixed");
         }
         Debug.Log("state is " + Jampuzzle.State + " TailGovernorFixed = " + Jampuzzle.TailGovernorFixed);
