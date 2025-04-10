@@ -77,12 +77,10 @@ public class TableRisingScript : MonoBehaviour
     {
         transform.position += new Vector3(0, 0.3f, 0);
         audioSource.Play();
-        Debug.Log("Raise Table");
     }
 
     private void RaiseCompass(){
         compass.SetActive(true);
-        Debug.Log("Raise Compass");
     }
 
     // Nothing is happening
@@ -151,7 +149,6 @@ public class TableRisingScript : MonoBehaviour
         // Continue to rise the object until it reaches the target height
         while (water.transform.position.y < 0.45f)
         {
-            Debug.Log(water.transform.position);
             water.transform.position += new UnityEngine.Vector3(0, 0.003f * Time.deltaTime, 0);
             yield return null;  // Wait for the next frame
         }
