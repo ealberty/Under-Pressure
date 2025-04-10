@@ -124,6 +124,7 @@ public class TableRisingScript : MonoBehaviour
     private void StateUpdateDone()
     {
         //triggers next thing
+        Game.Instance.FinishedPuzzle();
     }
 
     private IEnumerator Flood()
