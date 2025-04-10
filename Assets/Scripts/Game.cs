@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using State = GameState;
 
 public class Game : MonoBehaviour
@@ -11,6 +12,7 @@ public class Game : MonoBehaviour
     private Dictionary<State, Action> stateStayMethods;
     private float StateCount;
     public GameObject Table;
+    public GameObject FailParticles;
 
     public static Game Instance { get; private set; }
 
@@ -24,6 +26,7 @@ public class Game : MonoBehaviour
             [State.PUZZLE_2] = StateEnter_Puzzle_2,
             [State.PUZZLE_3] = StateEnter_Puzzle_3,
             [State.PUZZLE_4_FINISHED] = StateEnter_Puzzle_4_Finished,
+            [State.FAIL] = StateEnter_Fail,
         };
         stateStayMethods = new() {
             [State.IDLE] = StateStay_Idle,
@@ -31,6 +34,7 @@ public class Game : MonoBehaviour
             [State.PUZZLE_2] = StateStay_Puzzle_2,
             [State.PUZZLE_3] = StateStay_Puzzle_3,
             [State.PUZZLE_4_FINISHED] = StateStay_Puzzle_4_Finished,
+            [State.FAIL] = StateStay_Fail,
         };
         StateCount = 0;
         State = State.IDLE;
@@ -61,6 +65,10 @@ public class Game : MonoBehaviour
         DoorTwoOpen.Instance.OpenDoor();
     }
     private void StateEnter_Puzzle_4_Finished() {}
+    private void StateEnter_Fail() {
+        FailParticles.SetActive(true);
+        Invoke("GameOver", 7f);
+    }
     #endregion
 
     #region State Stay Methods
@@ -68,23 +76,32 @@ public class Game : MonoBehaviour
         if (StateCount == 0) {}
         else if (StateCount == 1)
             ChangeState(State.PUZZLE_1);
+        else if (StateCount == -1)
+            ChangeState(State.FAIL);
     }
     private void StateStay_Puzzle_1() {
         if (StateCount == 1) {}
         else if (StateCount == 2)
             ChangeState(State.PUZZLE_2);
+        else if (StateCount == -1)
+            ChangeState(State.FAIL);
     }
     private void StateStay_Puzzle_2() {
         if (StateCount == 2) {}
         else if (StateCount == 3)
             ChangeState(State.PUZZLE_3);
+        else if (StateCount == -1)
+            ChangeState(State.FAIL);
     }
     private void StateStay_Puzzle_3() {
         if (StateCount == 4) {}
         else if (StateCount == 3)
             ChangeState(State.PUZZLE_4_FINISHED);
+        else if (StateCount == -1)
+            ChangeState(State.FAIL);
     }
     private void StateStay_Puzzle_4_Finished() {}
+    private void StateStay_Fail() {}
     #endregion
     #endregion
 
@@ -92,6 +109,14 @@ public class Game : MonoBehaviour
     public void FinishedPuzzle()
     {
         StateCount += 1;
+    }
+    public void TimeOut()
+    {
+        StateCount = -1;
+    }
+    public void GameOver()
+    {
+        SceneManager.LoadScene("Game Over Scene");
     }
     #endregion
 }
