@@ -22,6 +22,6 @@ public class DoorOneOpen : MonoBehaviour
     }
 
     public void OpenDoor() {
-        animator.Play("Base Layer.Door Open");
+        animator.Play("Base Layer.Door Close");
     }
 }
