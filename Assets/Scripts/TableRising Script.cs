@@ -22,6 +22,7 @@ public class TableRisingScript : MonoBehaviour
     private TableState curState = TableState.WAITING;
     private Dictionary<TableState, System.Action> stateUpdateMethods;
     public bool enableTable = false;
+    bool finished = false;
 
     void Start()
     {
@@ -135,8 +136,10 @@ public class TableRisingScript : MonoBehaviour
     private void StateUpdateDone()
     {
         //triggers next thing
-
-        Game.Instance.FinishedPuzzle();
+        if (finished == false){
+            Game.Instance.FinishedPuzzle();
+            finished = true;
+        }
     }
 
     private IEnumerator Flood()
