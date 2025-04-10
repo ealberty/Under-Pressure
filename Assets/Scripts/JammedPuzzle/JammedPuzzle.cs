@@ -9,10 +9,10 @@ public class JammedPuzzle : MonoBehaviour
 {
    public State State {get; private set;}
    public GameObject TailGovernorWheel;
-   private Boolean Buffer1Jammed;
-   private Boolean Buffer2Jammed;
-   private Boolean TailGovernorJammed;
-   private Boolean TailGovernorFixed;
+   public Boolean Buffer1Jammed;
+   public Boolean Buffer2Jammed;
+   public Boolean TailGovernorJammed;
+   public Boolean TailGovernorFixed;
    private Dictionary<State, Action> stateEnterMethods;
    private Dictionary<State, Action> stateStayMethods;
 
@@ -58,6 +58,28 @@ public class JammedPuzzle : MonoBehaviour
         if (State != newState) {
             State = newState;
             stateEnterMethods[newState]();
+            Debug.Log("Entered State: " +  newState + " ; TailGovernorJammed = " + TailGovernorJammed);
+            switch (newState)
+            {
+                case State.IDLE:
+                    break;
+                case State.UNJAMBUFFJAMTAIL:
+                    SoundManager.Play(SoundType.CORRECT);
+                    break;
+                case State.BROKENJAMMED:
+                    SoundManager.Play(SoundType.WRONG);
+                    break;
+                case State.FIXEDJAMMED:
+                    SoundManager.Play(SoundType.CORRECT);
+                    break;
+                case State.FIXED:
+                    SoundManager.Play(SoundType.FINISHED);
+                    Game.Instance.FinishedPuzzle();
+                    break;
+                case State.BROKENUNJAMMED:
+                    SoundManager.Play(SoundType.WRONG);
+                    break;
+            }
         }
     }
 
@@ -94,7 +116,6 @@ public class JammedPuzzle : MonoBehaviour
             ChangeState(State.BROKENJAMMED);
         }
         else {
-            ChangeState(State.ERROR);
         }
     }
     private void StateStay_UnjamBuffJamTail() {
@@ -103,19 +124,17 @@ public class JammedPuzzle : MonoBehaviour
             ChangeState(State.BROKENUNJAMMED);
         }
         else {
-            ChangeState(State.ERROR);
         }
     }
     private void StateStay_BrokenJammed() {
-        if (TailGovernorJammed == false) {}
-        else if (Buffer1Jammed == false && Buffer2Jammed == false) {
+        if (Buffer1Jammed == false && Buffer2Jammed == false) {
             ChangeState(State.BROKENUNJAMMED);
         }
         else if (TailGovernorFixed == true) {
             ChangeState(State.FIXEDJAMMED);    
         }
         else {
-            ChangeState(State.ERROR);
+            
         }
     }
     private void StateStay_BrokenUnjammed() {
@@ -124,7 +143,6 @@ public class JammedPuzzle : MonoBehaviour
             ChangeState(State.FIXED);
         }
         else {
-            ChangeState(State.ERROR);
         }
     }
     private void StateStay_FixedJammed() {
@@ -133,7 +151,6 @@ public class JammedPuzzle : MonoBehaviour
             ChangeState(State.FIXED);
         }
         else {
-            ChangeState(State.ERROR);
         }
     }
     private void StateStay_Fixed(){}

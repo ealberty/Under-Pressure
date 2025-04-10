@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LayerNames:
   - Default
-  - 
-  - 
-  - 
-  - 
-  - 
+  - JammedWheel
+  - BrokenWheel
+  - JammedBuffer1
+  - JammedBuffer2
+  - Fixed
   - 
   - 
   - 
