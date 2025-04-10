@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,7 @@ public class TableRisingScript : MonoBehaviour
     private Dictionary<TableState, System.Action> stateUpdateMethods;
     public bool enableTable = false;
     bool finished = false;
+    public GameObject timing;
 
     void Start()
     {
@@ -147,11 +149,12 @@ public class TableRisingScript : MonoBehaviour
         // Store the initial position of the object
         UnityEngine.Vector3 startPosition = water.transform.position;
         UnityEngine.Vector3 targetPosition = new UnityEngine.Vector3(startPosition.x, startPosition.y + 8f, startPosition.z);
-
+        Debug.Log(water.transform.position);
         
         // Continue to rise the object until it reaches the target height
         while (water.transform.position.y < 0.45f)
         {
+            float moveAmount = 1.11f / timing.GetComponent<GameTimer>().timer;
             water.transform.position += new UnityEngine.Vector3(0, 0.003f * Time.deltaTime, 0);
             yield return null;  // Wait for the next frame
         }
