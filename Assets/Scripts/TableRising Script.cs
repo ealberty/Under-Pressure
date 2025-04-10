@@ -25,11 +25,11 @@ public class TableRisingScript : MonoBehaviour
 
     void Start()
     {
-        RaiseTable();
-        RaiseTable();
-        RaiseTable();
-        RaiseTable();
-        RaiseCompass();
+        //RaiseTable();
+        //RaiseTable();
+        //RaiseTable();
+        //RaiseTable();
+        //RaiseCompass();
         audioSource = GetComponent<AudioSource>();
 
         stateUpdateMethods = new()
@@ -76,12 +76,13 @@ public class TableRisingScript : MonoBehaviour
     private void RaiseTable()
     {
         transform.position += new Vector3(0, 0.3f, 0);
-//        audioSource.Play();
+        audioSource.Play();
+        Debug.Log("Raise Table");
     }
 
     private void RaiseCompass(){
         compass.SetActive(true);
-        Debug.Log("test");
+        Debug.Log("Raise Compass");
     }
 
     // Nothing is happening
@@ -128,6 +129,7 @@ public class TableRisingScript : MonoBehaviour
         if (angle >= -0.02f && angle <= 0.02f)
         {
             RaiseTable();
+            RaiseCompass();
             ChangeState(TableState.DONE);
         }
     }
