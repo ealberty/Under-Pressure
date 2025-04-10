@@ -159,7 +159,7 @@ public class TableRisingScript : MonoBehaviour
             yield return null;  // Wait for the next frame
         }
 
-        failState();
+        //failState();
     }
 
     public void failState(){
