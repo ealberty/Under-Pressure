@@ -57,7 +57,9 @@ public class Game : MonoBehaviour
         Table.GetComponent<TableRisingScript>().enableTable = true;
     }
     private void StateEnter_Puzzle_2() {}
-    private void StateEnter_Puzzle_3() {}
+    private void StateEnter_Puzzle_3() {
+        DoorTwoOpen.Instance.OpenDoor();
+    }
     private void StateEnter_Puzzle_4_Finished() {}
     #endregion
 
